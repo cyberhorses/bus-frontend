@@ -1,0 +1,42 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+.login-container {
+  @apply max-w-md mx-auto mt-10 p-6 bg-white dark:bg-gray-800 rounded-lg shadow-md;
+}
+
+.login-container h2 {
+  @apply text-2xl font-bold text-center mb-6 text-gray-900 dark:text-gray-100;
+}
+
+.form-group {
+  @apply mb-4;
+}
+
+.form-group label {
+  @apply block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2;
+}
+
+.form-group input {
+  @apply w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500;
+}
+
+.button-group {
+  @apply flex justify-between mt-4;
+}
+
+button {
+  @apply py-2 px-4 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-700 shadow-md border border-transparent;
+}
+
+button.register-button {
+  @apply bg-gray-600 hover:bg-gray-700;
+}
+
+button:focus {
+  @apply outline-none ring-2 ring-offset-2 ring-blue-500;
+}
