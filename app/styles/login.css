@@ -23,6 +23,7 @@
 
 .form-group input {
   @apply w-full px-4 py-2 border border-gray-300 dark:border-gray-700 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500;
+  @apply text-gray-900 dark:text-gray-100;
 }
 
 .button-group {
@@ -39,4 +40,23 @@ button.register-button {
 
 button:focus {
   @apply outline-none ring-2 ring-offset-2 ring-blue-500;
+}
+
+.error-message {
+  @apply text-red-600 dark:text-red-400 text-sm font-medium text-center mb-4;
+}
+
+.register-prompt {
+  @apply text-center mt-4 text-sm text-gray-700 dark:text-gray-300;
+}
+
+.register-link {
+  @apply text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-500 font-medium underline;
+  text-decoration: underline !important; /* Force underline to ensure it is applied */
+}
+
+/* Styles for success messages */
+
+.success-message {
+  @apply text-green-600 dark:text-green-400 text-sm font-medium text-center mb-4;
 }

@@ -1,27 +1,46 @@
-// File: app/routes/login.jsx
 import { useState } from "react";
-import { handleLogin } from "../http/apiClient";
-import { useNavigate } from "react-router";
 import { Link } from "react-router";
+import { useNavigate } from "react-router";
+import { handleRegister } from "../http/apiClient";
 import "../styles/login.css";
 
-
-const Login = () => {
+const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
 
-  const handleLoginBtnSubmit = async (e) => {
+  const handleRegisterBtnSubmit = async (e) => {
     e.preventDefault();
-    await handleLogin(username, password, navigate, setErrorMessage)
-  }
+
+    if (!username || !password) {
+      setErrorMessage("Username and password cannot be empty.");
+      setSuccessMessage(""); // Clear success message
+      return;
+    }
+
+    await handleRegister(
+      username,
+      password,
+      (errorMsg) => {
+        setErrorMessage(errorMsg);
+        setSuccessMessage(""); 
+      },
+      (successMsg) => {
+        setSuccessMessage(successMsg);
+        setErrorMessage(""); 
+      },
+      navigate
+    );
+  };
 
   return (
     <div className="login-container">
-      <h2>Login</h2>
+      <h2>Register</h2>
       <form>
         {errorMessage && <div className="error-message">{errorMessage}</div>}
+        {successMessage && <div className="success-message">{successMessage}</div>}
         <div className="form-group">
           <label htmlFor="username">Username:</label>
           <input
@@ -43,17 +62,26 @@ const Login = () => {
           />
         </div>
         <div className="button-group">
-          <button type="button" onClick={handleLoginBtnSubmit} className="login-button">
-            Login
+          <button
+            type="button"
+            onClick={handleRegisterBtnSubmit}
+            className="login-button"
+          >
+            Register
           </button>
         </div>
-        <p className="register-prompt">
-          Don’t have an account yet?
-          <Link to="/register" className="register-link"> Register now</Link>
-        </p>
       </form>
+      <div>
+        <p className="register-prompt">
+          Already registered?{" "}
+          <Link to="/login" className="register-link">
+            {" "}
+            Sign in
+          </Link>
+        </p>
+      </div>
     </div>
   );
 };
 
-export default Login;
+export default Register;
