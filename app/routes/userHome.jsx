@@ -1,8 +1,12 @@
-import React from "react";
+import { validateSession } from "../http/apiClient";
+import { useNavigate } from "react-router";
 import DirectoryBar from "../widgets/DirectoryBar";
 import "../styles/userHome.css";
+import { useEffect } from "react";
 
 const UserHome = () => {
+  console.log("UserHome rendered");
+  const navigate = useNavigate();
   const directories = [
     { id: 1, name: "Directory 1" },
     { id: 2, name: "Directory 2" },
@@ -20,6 +24,10 @@ const UserHome = () => {
     console.log(`Clicked directory with ID: ${id}`);
     // Add logic to handle directory click, e.g., navigate or fetch data
   };
+
+  useEffect(() => {
+    validateSession(navigate);
+  }, [navigate]);
 
   return (
     <div className="home-container">

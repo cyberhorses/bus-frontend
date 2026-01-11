@@ -1,7 +1,10 @@
 import {
     API_BASEPATH,
     LOGIN_PATH,
-    REGISTER_PATH
+    REGISTER_PATH,
+    CATALOGS_PATH,
+    SESSION_VALIDATE_PATH,
+    SESSION_REFRESH_PATH
 } from "../config/apiConfig"
 
 // REAL
@@ -65,6 +68,63 @@ export const handleRegister = async (username, password, setErrorMessage, setSuc
 //   setSuccessMessage("Registration successful! You can now log in.");
 // };
 
+export const fetchCatalogs = async (pageNum, pageSize) => {
+  try {
+    const response = await fetch('${API_BASEPATH}${CATALOGS_PATH}?' + new URLSearchParams({
+      page: pageNum,
+      pageSize: pageSize
+    }).toString());
+
+    if (response.ok) {
+      const data = await response.json();
+      return data;
+    } else {
+      // TODO handle invalid response
+      console.error('Failed to fetch catalogs:', response.status, response.statusText);
+      return {}; // Return an empty object if the response is not OK
+    }
+  } catch (error) {
+    console.error('Error during fetchCatalogs:', error);
+    return {}; // Return an empty object in case of an error
+  }
+};
 
 
+export const validateSession = async (navigate) => {
+  console.log("trying to validate session")
+  try {
+    const validateResponse = await fetch(API_BASEPATH + SESSION_VALIDATE_PATH);
 
+    if (validateResponse.status === 200) {
+      return;
+    }
+    
+    if (validateResponse.status === 401) {
+      const data = await validateResponse.json();
+      console.log(data);
+      if (data.error === "Session expired") {
+        console.log("expired token")
+        await _tryRefreshSession(navigate);
+        return;
+      }
+    }
+  } catch (validateError) {
+    console.error('Error during session validation:', validateError);
+  }
+  navigate('/oops');
+};
+
+const _tryRefreshSession = async (navigate) => {
+  console.log("trying to refresh token");
+  try{
+    const refreshResponse = await fetch(API_BASEPATH + SESSION_REFRESH_PATH);
+
+    if (refreshResponse.ok) {
+      console.log("token refresh successfull");
+      return;
+    }
+  } catch (refreshError) {
+    console.error('Error during session refresh:', refreshError);
+  }
+  navigate('/oops');
+}
