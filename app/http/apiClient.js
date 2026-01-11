@@ -53,7 +53,7 @@ export const handleRegister = async (username, password, setErrorMessage, setSuc
       setSuccessMessage('Registration successful! You can now log in.'); // Set success message
     } else {
       const errorData = await response.json();
-      setErrorMessage(errorData.message || 'Registration failed. Please try again.'); // Set error message from response
+      setErrorMessage(errorData.error || 'Registration failed. Please try again.'); // Set error message from response
     }
   } catch (error) {
     console.error('Error during registration:', error);
