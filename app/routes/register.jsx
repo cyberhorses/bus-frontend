@@ -7,6 +7,7 @@ import "../styles/login.css";
 const Register = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [repeatPassword, setRepeatPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
   const navigate = useNavigate();
@@ -14,8 +15,14 @@ const Register = () => {
   const handleRegisterBtnSubmit = async (e) => {
     e.preventDefault();
 
-    if (!username || !password) {
-      setErrorMessage("Username and password cannot be empty.");
+    if (!username || !password || !repeatPassword) {
+      setErrorMessage("All fields are required.");
+      setSuccessMessage(""); // Clear success message
+      return;
+    }
+
+    if (password !== repeatPassword) {
+      setErrorMessage("Passwords do not match.");
       setSuccessMessage(""); // Clear success message
       return;
     }
@@ -58,6 +65,16 @@ const Register = () => {
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="repeat-password">Repeat Password:</label>
+          <input
+            type="password"
+            id="repeat-password"
+            value={repeatPassword}
+            onChange={(e) => setRepeatPassword(e.target.value)}
             required
           />
         </div>
