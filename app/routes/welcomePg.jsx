@@ -1,5 +1,3 @@
-import { Welcome } from "../welcome/welcome";
-
 export function meta() {
   return [
     { title: "BUS bleble" },
@@ -8,5 +6,9 @@ export function meta() {
 }
 
 export default function WelcomePg() {
-  return <Welcome />;
+  return (
+    <div>
+      <h1>:)</h1>
+    </div>
+  );
 }
