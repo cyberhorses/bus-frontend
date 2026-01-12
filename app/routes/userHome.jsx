@@ -130,33 +130,50 @@ const UserHome = () => {
     }
   };
 
-  const FileList = ({ files, selectedFileId, onFileSelect }) => {
+  const FileList = ({ files, selectedFileId, onFileSelect, currentFilePage, totalFilePages, onPageChange }) => {
     const handleFileClick = (id) => {
       onFileSelect(id);
     };
 
     return (
-      <div className="file-list">
-        {files.map((file) => (
-          <div
-            key={file.id}
-            className={`file-item ${selectedFileId === file.id ? "selected" : ""}`}
-            onClick={() => handleFileClick(file.id)}
+      <div className="file-list-wrapper">
+        <div className="file-list">
+          {files.map((file) => (
+            <div
+              key={file.id}
+              className={`file-item ${selectedFileId === file.id ? "selected" : ""}`}
+              onClick={() => handleFileClick(file.id)}
+            >
+              <span className="file-name">{file.name}</span>
+              <span className="file-size">{file.size}</span>
+            </div>
+          ))}
+        </div>
+        <div className="pagination-controls">
+          <button
+            className="pagination-button"
+            onClick={() => onPageChange(currentFilePage - 1)}
+            disabled={currentFilePage === 1}
           >
-            <span className="file-name">{file.name}</span>
-            <span className="file-size">{file.size}</span>
-          </div>
-        ))}
+            Previous
+          </button>
+          <span className="pagination-info">
+            Page {currentFilePage} of {totalFilePages}
+          </span>
+          <button
+            className="pagination-button"
+            onClick={() => onPageChange(currentFilePage + 1)}
+            disabled={currentFilePage === totalFilePages}
+          >
+            Next
+          </button>
+        </div>
       </div>
     );
   };
 
   return (
     <div className="user-home">
-      {/* <div className="top-bar">
-        <span className="username-display">Logged as: {username}</span>
-        <button className="logout-button" onClick={handleLogout}>Logout</button>
-      </div> */}
     {username ? (
       <div className="top-bar">
         <span className="username-display">Logged as: {username}</span>
@@ -201,10 +218,10 @@ const UserHome = () => {
         files={files}
         selectedFileId={selectedFileId}
         onFileSelect={setSelectedFileId}
+        currentFilePage={currentFilePage}
+        totalFilePages={totalFilePages}
+        onPageChange={setCurrentFilePage}
       /> {/* Render FileList component here */}
-      <div>
-        <p>Selected File ID: {selectedFileId}</p>
-      </div>
     </div>
   );
 };
