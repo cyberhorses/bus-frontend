@@ -160,7 +160,7 @@ export const logoutUser = async (navigate) => {
     const logoutResponse = await fetch(API_BASEPATH + SESSION_LOGOUT_PATH);
 
     if (logoutResponse.ok) {
-      navigate('login')
+      navigate(LOGIN_PATH);
     }
   } catch (error) {
     console.error('Error during session logout: ', error);

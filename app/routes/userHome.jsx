@@ -1,6 +1,6 @@
 import { validateSession, fetchFolders, createFolder, logoutUser } from "../http/apiClient";
 import { useNavigate } from "react-router";
-import { FOLDERS_PAGE_SIZE, DEFAULT_PAGE } from "../config/apiConfig";
+import { FOLDERS_PAGE_SIZE, DEFAULT_PAGE, LOGIN_PATH } from "../config/apiConfig";
 import "../styles/userHome.css";
 import { useEffect, useState } from "react";
 
@@ -104,6 +104,10 @@ const UserHome = () => {
     } catch (error) {
       console.error("Error fetching folders for new page:", error);
     }
+  };
+
+  const handleLogout = () => {
+    logoutUser(navigate);
   };
 
   return (
