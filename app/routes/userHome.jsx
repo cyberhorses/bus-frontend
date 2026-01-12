@@ -209,14 +209,17 @@ const UserHome = () => {
         username={username}
       />
 
-      <div className="create-folder">
-        <input
-          type="text"
-          placeholder="Enter folder name"
-          value={folderName}
-          onChange={(e) => setFolderName(e.target.value)}
-        />
-        <button onClick={handleCreateFolder}>Create</button>
+      <div className="create-folder-group">
+        <h3>Create Folder</h3>
+        <div className="create-folder">
+          <input
+            type="text"
+            placeholder="Enter folder name"
+            value={folderName}
+            onChange={(e) => setFolderName(e.target.value)}
+          />
+          <button onClick={handleCreateFolder}>Create</button>
+        </div>
       </div>
 
       {successMessage && <p className="success-message">{successMessage}</p>}

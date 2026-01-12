@@ -41,8 +41,12 @@
     @apply m-5;
   }
 
+  .create-folder-group {
+    @apply border border-gray-300 rounded-md p-4 mb-4;
+  }
+
   .create-folder {
-    @apply mt-5;
+    @apply flex gap-2;
   }
 
   .success-message {
