@@ -40,7 +40,8 @@ const UserHome = () => {
     setFolders(data["items"]);
     setCurrentPage(data["page"])
     setTotalPages(data["totalPages"])
-    console.log(data)
+    console.log(data);
+    console.log(folders);
   }
 
   useEffect(() => {
@@ -51,7 +52,7 @@ const UserHome = () => {
 
         // If session is valid, fetch folders
         const data = await fetchFolders(DEFAULT_PAGE, FOLDERS_PAGE_SIZE)
-        if (!Object.keys(data).length === 0) {
+        if (Object.keys(data).length !== 0) {
           updateData(data)
         }
 
