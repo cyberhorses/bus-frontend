@@ -141,7 +141,7 @@ const UserHome = () => {
       formData.append("dir", dir);
 
       await uploadFile(formData);
-      console.log("File uploaded successfully");
+      updateFilesData(currentFolder, currentFilePage);
     } catch (error) {
       console.error("Error uploading file:", error);
     }
@@ -283,8 +283,14 @@ const UserHome = () => {
       )}
 
       {currentFolderPermissions && currentFolderPermissions.delete && selectedFileId && (
-        <button className="delete-button" onClick={() => deleteFile(selectedFileId)}>
-          Delete File
+        <button
+          className="delete-button"
+          onClick={async () => {
+            await deleteFile(selectedFileId);
+            updateFilesData(currentFolder, currentFilePage);
+          }}
+        >
+          Delete
         </button>
       )}
     </div>
