@@ -122,6 +122,10 @@ const UserHome = () => {
     const form = event.currentTarget;
     const fileInput = form.elements.file;
     const dirInput = form.elements.dir;
+    
+    console.log("File input:", fileInput);
+    console.log("File selected:", fileInput?.files[0]);
+    console.log("Directory input:", dirInput);
 
     const file = fileInput?.files[0];
     const dir = dirInput?.value;
