@@ -18,7 +18,7 @@
   }
 
   .pagination-controls {
-    @apply flex items-center gap-2 mt-2;
+    @apply flex items-center gap-2 mt-2 ml-auto;
   }
 
   .pagination-button {
@@ -54,7 +54,7 @@
   }
 
   .folder-bar {
-    @apply flex gap-4 p-2 bg-gray-100 border border-gray-300 rounded-md overflow-x-auto mb-4;
+    @apply flex items-center justify-between gap-4 p-2 bg-gray-100 border border-gray-300 rounded-md overflow-x-auto mb-4;
   }
 
   .folder-item {
