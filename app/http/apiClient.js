@@ -250,3 +250,18 @@ export const downloadFile = async (file_id) => {
     console.error("Error during file upload:", error);
   }
 }
+
+export const deleteFile = async (file_id) => {
+  const response = await fetch(API_BASEPATH + FILE_DOWNLOAD_PATH + file_id, {
+    method: "DELETE"
+  });
+
+  try{
+    const response = await fetch(API_BASEPATH + FILE_DOWNLOAD_PATH + file_id);
+    if (!response.ok){
+      console.log("file delete failed");
+    }
+  } catch (error) {
+    console.error("Error during file upload:", error);
+  }
+}

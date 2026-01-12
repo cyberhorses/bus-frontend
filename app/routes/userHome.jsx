@@ -1,4 +1,4 @@
-import { validateSession, fetchFolders, createFolder, logoutUser, uploadFile, fetchFolderFiles, fetchFolderPermissions, downloadFile } from "../http/apiClient";
+import { validateSession, fetchFolders, createFolder, logoutUser, uploadFile, fetchFolderFiles, fetchFolderPermissions, downloadFile, deleteFile } from "../http/apiClient";
 import { useNavigate } from "react-router";
 import { FOLDERS_PAGE_SIZE, DEFAULT_PAGE, LOGIN_PATH, FILES_PAGE_SIZE } from "../config/apiConfig";
 import { useEffect, useState } from "react";
@@ -278,7 +278,13 @@ const UserHome = () => {
 
       {currentFolderPermissions && currentFolderPermissions.read && selectedFileId && (
         <button className="download-button" onClick={() => downloadFile(selectedFileId)}>
-          Download
+          Download File
+        </button>
+      )}
+
+      {currentFolderPermissions && currentFolderPermissions.delete && selectedFileId && (
+        <button className="delete-button" onClick={() => deleteFile(selectedFileId)}>
+          Delete File
         </button>
       )}
     </div>
