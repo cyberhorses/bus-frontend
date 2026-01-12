@@ -45,7 +45,7 @@ const UserHome = () => {
   console.log("UserHome rendered");
 
   const [folders, setFolders] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(DEFAULT_PAGE);
   const [totalPages, setTotalPages] = useState(1);
   const [folderName, setFolderName] = useState('');
   const [successMessage, setSuccessMessage] = useState(''); // Przechowywanie wiadomości sukcesu
@@ -57,8 +57,8 @@ const UserHome = () => {
     // Add logic to handle directory click, e.g., navigate or fetch data
   };
 
-  const updateData = async () => {
-    const data = await fetchFolders(DEFAULT_PAGE, FOLDERS_PAGE_SIZE)
+  const updateData = async (page) => {
+    const data = await fetchFolders(page, FOLDERS_PAGE_SIZE)
     setFolders(data["items"]);
     setCurrentPage(data["page"])
     setTotalPages(data["totalPages"])
@@ -72,7 +72,7 @@ const UserHome = () => {
         // Validate session first
         await validateSession(navigate);
 
-        updateData();
+        updateData(currentPage);
 
       } catch (error) {
         console.error('Error during initialization:', error);
@@ -100,8 +100,7 @@ const UserHome = () => {
 
   const handlePageChange = async (newPage) => {
     try {
-      setCurrentPage(newPage);
-      updateData();
+      updateData(newPage);
     } catch (error) {
       console.error("Error fetching folders for new page:", error);
     }
