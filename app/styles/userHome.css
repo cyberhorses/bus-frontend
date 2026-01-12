@@ -80,8 +80,4 @@
   .logout-button:hover {
     @apply bg-red-600;
   }
-
-  .folder-pagination-wrapper {
-    @apply flex flex-col items-center gap-4;
-  }
 }
