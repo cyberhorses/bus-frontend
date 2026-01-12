@@ -5,7 +5,8 @@ import {
     FOLDERS_PATH,
     SESSION_VALIDATE_PATH,
     SESSION_REFRESH_PATH,
-    SESSION_LOGOUT_PATH
+    SESSION_LOGOUT_PATH,
+    FILE_UPLOAD_PATH
 } from "../config/apiConfig"
 
 // REAL
@@ -166,3 +167,22 @@ export const logoutUser = async (navigate) => {
     console.error('Error during session logout: ', error);
   }
 }
+
+
+export const uploadFile = async (formData) => {
+  try {
+    const response = await fetch(API_BASEPATH + FILE_UPLOAD_PATH, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to upload file: ${response.statusText}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error during file upload:", error);
+    throw error;
+  }
+};

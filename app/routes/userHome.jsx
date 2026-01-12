@@ -1,4 +1,4 @@
-import { validateSession, fetchFolders, createFolder, logoutUser } from "../http/apiClient";
+import { validateSession, fetchFolders, createFolder, logoutUser, uploadFile } from "../http/apiClient";
 import { useNavigate } from "react-router";
 import { FOLDERS_PAGE_SIZE, DEFAULT_PAGE, LOGIN_PATH } from "../config/apiConfig";
 import "../styles/userHome.css";
@@ -49,10 +49,12 @@ const UserHome = () => {
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState(''); 
   const [username, setUsername] = useState('');
+  const [currentFolder, setCurrentFolder] = useState('')
   const navigate = useNavigate();
 
-  const handleDirectoryClick = (id) => {
+  const handleFolderClick = (id) => {
     console.log(`Clicked directory with ID: ${id}`);
+    setCurrentFolder(id)
     // Add logic to handle directory click, e.g., navigate or fetch data
   };
 
@@ -110,6 +112,30 @@ const UserHome = () => {
     logoutUser(navigate);
   };
 
+  const handleFileUpload = async (event) => {
+    event.preventDefault();
+    const fileInput = event.target.elements.file;
+    const dirInput = event.target.elements.dir;
+    const file = fileInput.files[0];
+    const dir = dirInput.value;
+
+    if (!file) {
+      console.error("No file selected");
+      return;
+    }
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("dir", dir);
+
+      await uploadFile(formData);
+      console.log("File uploaded successfully");
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
+  };
+
   return (
     <div className="user-home">
       <div className="top-bar">
@@ -121,7 +147,7 @@ const UserHome = () => {
 
       <FolderBar
         folders={folders}
-        onFolderClick={handleDirectoryClick}
+        onFolderClick={handleFolderClick}
         currentPage={currentPage}
         totalPages={totalPages}
         onPageChange={handlePageChange}
@@ -139,6 +165,12 @@ const UserHome = () => {
 
       {successMessage && <p className="success-message">{successMessage}</p>}
       {errorMessage && <p className="error-message">{errorMessage}</p>}
+
+      <form onSubmit={handleFileUpload} className="file-upload-form">
+        <input type="file" name="file" />
+        <input type="hidden" name="dir" value={currentFolder} />
+        <button type="submit">Upload File</button>
+      </form>
     </div>
   );
 };

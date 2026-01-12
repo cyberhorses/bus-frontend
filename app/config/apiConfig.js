@@ -5,6 +5,7 @@ export const FOLDERS_PATH = "/folders"
 export const SESSION_VALIDATE_PATH =  "/session/validate"
 export const SESSION_REFRESH_PATH = "/session/manage/refresh"
 export const SESSION_LOGOUT_PATH = "/session/manage/logout"
+export const FILE_UPLOAD_PATH = "/file/upload"
 
 
 
