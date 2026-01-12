@@ -64,4 +64,20 @@
   .folder-item:hover {
     @apply bg-blue-600 scale-105;
   }
+
+  .top-bar {
+    @apply flex justify-end items-center p-2 bg-gray-100 border-b;
+  }
+
+  .username-display {
+    @apply mr-4 text-gray-800;
+  }
+
+  .logout-button {
+    @apply py-2 px-4 bg-red-500 text-white rounded-md cursor-pointer transition;
+  }
+
+  .logout-button:hover {
+    @apply bg-red-600;
+  }
 }

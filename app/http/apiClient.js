@@ -4,7 +4,8 @@ import {
     REGISTER_PATH,
     FOLDERS_PATH,
     SESSION_VALIDATE_PATH,
-    SESSION_REFRESH_PATH
+    SESSION_REFRESH_PATH,
+    SESSION_LOGOUT_PATH
 } from "../config/apiConfig"
 
 // REAL
@@ -112,7 +113,7 @@ export const createFolder = async (name, setErrorMessage, setSuccessMessage) => 
 }
 
 
-export const validateSession = async (navigate) => {
+export const validateSession = async (navigate, setUsername) => {
   console.log("trying to validate session")
   try {
     const validateResponse = await fetch(API_BASEPATH + SESSION_VALIDATE_PATH);
@@ -128,6 +129,8 @@ export const validateSession = async (navigate) => {
         console.log("expired token")
         await _tryRefreshSession(navigate);
         return;
+      } else {
+        setUsername(data["username"]);
       }
     }
   } catch (validateError) {
@@ -149,4 +152,17 @@ const _tryRefreshSession = async (navigate) => {
     console.error('Error during session refresh:', refreshError);
   }
   navigate('/oops');
+}
+
+
+export const logoutUser = async (navigate) => {
+  try{
+    const logoutResponse = await fetch(API_BASEPATH + SESSION_LOGOUT_PATH);
+
+    if (logoutResponse.ok) {
+      navigate('login')
+    }
+  } catch (error) {
+    console.error('Error during session logout: ', error);
+  }
 }

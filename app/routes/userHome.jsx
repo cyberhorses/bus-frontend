@@ -1,4 +1,4 @@
-import { validateSession, fetchFolders, createFolder } from "../http/apiClient";
+import { validateSession, fetchFolders, createFolder, logoutUser } from "../http/apiClient";
 import { useNavigate } from "react-router";
 import { FOLDERS_PAGE_SIZE, DEFAULT_PAGE } from "../config/apiConfig";
 import "../styles/userHome.css";
@@ -46,8 +46,9 @@ const UserHome = () => {
   const [currentPage, setCurrentPage] = useState(DEFAULT_PAGE);
   const [totalPages, setTotalPages] = useState(1);
   const [folderName, setFolderName] = useState('');
-  const [successMessage, setSuccessMessage] = useState(''); // Przechowywanie wiadomości sukcesu
-  const [errorMessage, setErrorMessage] = useState(''); // Przechowywanie wiadomości błędu
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState(''); 
+  const [username, setUsername] = useState('');
   const navigate = useNavigate();
 
   const handleDirectoryClick = (id) => {
@@ -68,7 +69,7 @@ const UserHome = () => {
     const initialize = async () => {
       try {
         // Validate session first
-        await validateSession(navigate);
+        await validateSession(navigate, setUsername);
 
         updateData(currentPage);
 
@@ -107,6 +108,11 @@ const UserHome = () => {
 
   return (
     <div className="user-home">
+      <div className="top-bar">
+        <span className="username-display">Logged as: {username}</span>
+        <button className="logout-button" onClick={handleLogout}>Logout</button>
+      </div>
+
       <h1>Welcome to User Home</h1>
 
       <FolderBar
