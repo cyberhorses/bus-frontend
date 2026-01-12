@@ -3,7 +3,6 @@ import { useState } from "react";
 import { handleLogin } from "../http/apiClient";
 import { useNavigate } from "react-router";
 import { Link } from "react-router";
-import "../styles/login.css";
 
 
 const Login = () => {

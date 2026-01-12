@@ -6,7 +6,7 @@ import {
   Scripts,
   ScrollRestoration,
 } from "react-router";
-
+import "./styles/app.css"
 
 export const links = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
