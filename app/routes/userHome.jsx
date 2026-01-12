@@ -244,11 +244,20 @@ const UserHome = () => {
       /> {/* Render FileList component here */}
 
       {currentFolder && currentFolderPermissions && currentFolderPermissions.upload && (
-        <div className="file-upload-form">
-          <input type="file" name="file" />
-          <input type="hidden" name="dir" value={currentFolder} />
-          <button onClick={handleFileUpload}>Upload File</button>
-        </div>
+        <form className="file-upload-form" onSubmit={handleFileUpload}>
+          <label htmlFor="file-upload">Choose File</label>
+          <input
+            id="file-upload"
+            type="file"
+            name="file"
+          />
+          <input
+            type="hidden"
+            name="dir"
+            value={currentFolder}
+          />
+          <button type="submit">Upload File</button>
+        </form>
       )}
 
       {currentFolderPermissions && (
