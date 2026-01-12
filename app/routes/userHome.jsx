@@ -242,11 +242,9 @@ const UserHome = () => {
 
       {currentFolder && currentFolderPermissions && currentFolderPermissions.upload && (
         <div className="file-upload-form">
-          <input
-            type="file"
-            onChange={(e) => setSelectedFile(e.target.files[0])}
-          />
-          <button onClick={handleFileUpload}>Upload File</button>
+          <input type="file" name="file" />
+          <input type="hidden" name="dir" value={currentFolder} />
+          <button onClick={handleFileUpload}>Upload File </button>
         </div>
       )}
 
