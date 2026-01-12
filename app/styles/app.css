@@ -49,6 +49,10 @@
     @apply flex gap-2;
   }
 
+  .create-folder input {
+    @apply p-2;
+  }
+
   .success-message {
     @apply text-green-500;
   }
