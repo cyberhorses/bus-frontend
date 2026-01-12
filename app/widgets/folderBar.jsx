@@ -1,7 +1,7 @@
 export const FolderBar = ({ folders, onFolderClick, currentPage, totalPages, onPageChange, username }) => {
   return (
     <div>
-      <h2>Available folders</h2>
+      <h2>Available folders:</h2>
       <div className="folder-bar">
         {folders.map((folder) => (
           <div

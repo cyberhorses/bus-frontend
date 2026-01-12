@@ -8,7 +8,8 @@ import {
     SESSION_LOGOUT_PATH,
     FILE_UPLOAD_PATH,
     FILES_PATH,
-    PERMISSIONS_PATH
+    PERMISSIONS_PATH,
+    FILE_DOWNLOAD_PATH
 } from "../config/apiConfig"
 
 // REAL
@@ -219,6 +220,33 @@ export const uploadFile = async (formData) => {
     return await response.json();
   } catch (error) {
     console.error("Error during file upload:", error);
-    throw error;
   }
 };
+
+export const downloadFile = async (file_id) => {
+  try {
+    const response = await fetch(API_BASEPATH + FILE_DOWNLOAD_PATH + file_id);
+    if (!response.ok) {
+      return;
+    }
+
+    const blob = await response.blob();
+    const url = URL.createObjectURL(blob);
+
+    const link = document.createElement("a");
+    link.href = url;
+
+    const contentDisposition = response.headers.get("Content-Disposition");
+    const filenameMatch = contentDisposition?.match(/filename="(.+)"/);
+    const filename = filenameMatch ? filenameMatch[1] : "downloaded-file";
+
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  } catch (error) {
+    console.error("Error during file upload:", error);
+  }
+}

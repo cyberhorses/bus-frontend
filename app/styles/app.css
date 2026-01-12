@@ -196,18 +196,22 @@ button:focus {
 }
 
 .file-upload-form input[type="file"] {
-  @apply border border-gray-300 rounded-md p-2 cursor-pointer bg-white shadow-md;
-}
-
-.file-upload-form input[type="file"]:hover {
-  @apply border-blue-500;
+  @apply border border-gray-300 rounded-md p-2 cursor-pointer;
 }
 
 .file-upload-form label {
-  @apply text-sm text-gray-700 font-bold;
+  @apply text-sm text-gray-700;
 }
 
 .file-upload-form .file-status {
-  @apply text-sm text-gray-500 italic;
+  @apply text-sm text-gray-500;
+}
+
+.download-button {
+  @apply px-4 py-2 bg-blue-600 text-white rounded-md cursor-pointer transition;
+}
+
+.download-button:hover {
+  @apply bg-blue-700;
 }
 }
