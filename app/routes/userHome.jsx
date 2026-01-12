@@ -22,7 +22,6 @@ const UserHome = () => {
   //   { id: "c4d56e78-1abc-4def-9a34-ef6789012345", name: "video.mp4", size: "20MB" },
   // ];
   const [selectedFileId, setSelectedFileId] = useState(null); // Lifted selectedFileId state
-  const [selectedFile, setSelectedFile] = useState(null); // New state for the selected file
 
   // folder creation
   const [folderName, setFolderName] = useState('');
@@ -243,15 +242,7 @@ const UserHome = () => {
 
       {currentFolder && currentFolderPermissions && currentFolderPermissions.upload && (
         <div className="file-upload-form">
-          <label htmlFor="file-upload">Choose File</label>
-          <input
-            id="file-upload"
-            type="file"
-            onChange={(e) => setSelectedFile(e.target.files[0])}
-          />
-          <span className="file-status">
-            {selectedFile ? selectedFile.name : "No file chosen"}
-          </span>
+          <input type="file" name="file" />
           <input type="hidden" name="dir" value={currentFolder} />
           <button onClick={handleFileUpload}>Upload File</button>
         </div>
