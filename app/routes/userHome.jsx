@@ -44,8 +44,6 @@ const UserHome = () => {
   }
 
   const updateFilesData = async (folderId, page) => {
-    if (currentFolder === '') return;
-
     try {
       const data = await fetchFolderFiles(folderId, page, FILES_PAGE_SIZE);
       console.log(files);

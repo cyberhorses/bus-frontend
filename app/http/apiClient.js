@@ -6,7 +6,8 @@ import {
     SESSION_VALIDATE_PATH,
     SESSION_REFRESH_PATH,
     SESSION_LOGOUT_PATH,
-    FILE_UPLOAD_PATH
+    FILE_UPLOAD_PATH,
+    FILES_PATH
 } from "../config/apiConfig"
 
 // REAL
@@ -92,7 +93,8 @@ export const fetchFolders = async (pageNum, pageSize) => {
 
 export const fetchFolderFiles = async (folder_id, pageNum, pageSize) => {
   try{
-    const response = await fetch(API_BASEPATH + FOLDERS_PATH + '/' + folder_id + "?" + new URLSearchParams({
+    const response = await fetch(API_BASEPATH + FOLDERS_PATH + '/' + folder_id + FILES_PATH + "?" 
+      + new URLSearchParams({
       page: pageNum,
       pageSize: pageSize
     }).toString());
