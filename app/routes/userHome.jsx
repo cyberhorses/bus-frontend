@@ -119,9 +119,9 @@ const UserHome = () => {
   const handleFileUpload = async (event) => {
     event.preventDefault();
 
-    const form = event.target;
-    const fileInput = form.querySelector("input[type='file']");
-    const dirInput = form.querySelector("input[name='dir']");
+    const form = event.currentTarget;
+    const fileInput = form.elements.file;
+    const dirInput = form.elements.dir;
 
     const file = fileInput?.files[0];
     const dir = dirInput?.value;
