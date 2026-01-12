@@ -169,7 +169,7 @@ const UserHome = () => {
         <div className="pagination-controls">
           <button
             className="pagination-button"
-            onClick={() => onPageChange(currentFilePage - 1)}
+            onClick={() => onPageChange(currentFolder, currentFilePage - 1)}
             disabled={currentFilePage === 1}
           >
             Previous
@@ -179,7 +179,7 @@ const UserHome = () => {
           </span>
           <button
             className="pagination-button"
-            onClick={() => onPageChange(currentFilePage + 1)}
+            onClick={() => onPageChange(currentFolder, currentFilePage + 1)}
             disabled={currentFilePage === totalFilePages}
           >
             Next
