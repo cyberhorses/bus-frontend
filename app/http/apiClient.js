@@ -140,7 +140,6 @@ export const validateSession = async (navigate, setUsername) => {
     const validateResponse = await fetch(API_BASEPATH + SESSION_VALIDATE_PATH);
 
     if (validateResponse.status === 200) {
-      const data = await validateResponse.json();
       setUsername(data["username"]);
       return;
     }
@@ -152,6 +151,8 @@ export const validateSession = async (navigate, setUsername) => {
         console.log("expired token")
         await _tryRefreshSession(navigate);
         return;
+      } else {
+        setUsername(data["username"]);
       }
     }
   } catch (validateError) {
