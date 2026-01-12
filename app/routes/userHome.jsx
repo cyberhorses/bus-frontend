@@ -146,13 +146,15 @@ const UserHome = () => {
     )}
       <h1>Welcome to User Home</h1>
 
-      <FolderBar
-        folders={folders}
-        onFolderClick={handleFolderClick}
-        currentPage={currentFolderPage}
-        totalPages={totalFolderPages}
-        onPageChange={handlePageChange}
-      />
+      <div className="folder-pagination-wrapper">
+        <FolderBar
+          folders={folders}
+          onFolderClick={handleFolderClick}
+          currentPage={currentFolderPage}
+          totalPages={totalFolderPages}
+          onPageChange={handlePageChange}
+        />
+      </div>
 
       <div className="create-folder">
         <input
