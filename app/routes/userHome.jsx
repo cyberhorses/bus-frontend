@@ -81,7 +81,7 @@ const UserHome = () => {
     };
 
     initialize();
-  }, [navigate]);
+  }, []);
 
   const handleCreateFolder = async () => {
     try {
