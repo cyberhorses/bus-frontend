@@ -100,6 +100,7 @@ export const fetchFolderFiles = async (folder_id, pageNum, pageSize) => {
     }).toString());
 
     if (response.ok){
+      const data = await response.json();
       return data;
     } else {
       console.error('Failed to fetch catalogs:', response.status, response.statusText);
