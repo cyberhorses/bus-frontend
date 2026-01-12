@@ -6,7 +6,7 @@ export const FolderBar = ({ folders, onFolderClick, currentPage, totalPages, onP
         {folders.map((folder) => (
           <div
             key={folder.id}
-            className="folder-item"
+            className={`folder-item ${folder.ownerUsername !== username ? "owner" : ""}`}
             onClick={() => onFolderClick(folder.id)}
           >
             {folder.ownerUsername !== username ? `${folder.ownerUsername}/${folder.name}` : folder.name}
