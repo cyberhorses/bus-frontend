@@ -240,11 +240,15 @@ const UserHome = () => {
         onPageChange={setCurrentFilePage}
       /> {/* Render FileList component here */}
 
-      <form onSubmit={handleFileUpload} className="file-upload-form">
-        <input type="file" name="file" />
-        <input type="hidden" name="dir" value={currentFolder} />
-        <button type="submit">Upload File</button>
-      </form>
+      {currentFolder && currentFolderPermissions && currentFolderPermissions.upload && (
+        <div className="file-upload-form">
+          <input
+            type="file"
+            onChange={(e) => setSelectedFile(e.target.files[0])}
+          />
+          <button onClick={handleFileUpload}>Upload File</button>
+        </div>
+      )}
 
       {currentFolderPermissions && (
         <div className="permissions">

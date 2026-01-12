@@ -190,4 +190,8 @@ button:focus {
 .permissions li {
   @apply text-sm;
 }
+
+.file-upload-form {
+  @apply border border-gray-300 rounded-md p-4 mt-4;
+}
 }
