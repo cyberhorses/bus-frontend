@@ -2,7 +2,7 @@ import {
     API_BASEPATH,
     LOGIN_PATH,
     REGISTER_PATH,
-    CATALOGS_PATH,
+    FOLDERS_PATH,
     SESSION_VALIDATE_PATH,
     SESSION_REFRESH_PATH
 } from "../config/apiConfig"
@@ -68,9 +68,9 @@ export const handleRegister = async (username, password, setErrorMessage, setSuc
 //   setSuccessMessage("Registration successful! You can now log in.");
 // };
 
-export const fetchCatalogs = async (pageNum, pageSize) => {
+export const fetchFolders = async (pageNum, pageSize) => {
   try {
-    const response = await fetch('${API_BASEPATH}${CATALOGS_PATH}?' + new URLSearchParams({
+    const response = await fetch('${API_BASEPATH}${FOLDERS_PATH}?' + new URLSearchParams({
       page: pageNum,
       pageSize: pageSize
     }).toString());

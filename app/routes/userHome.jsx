@@ -1,38 +1,52 @@
-import { validateSession } from "../http/apiClient";
+import { validateSession, fetchFolders } from "../http/apiClient";
 import { useNavigate } from "react-router";
-import DirectoryBar from "../widgets/DirectoryBar";
+import { FOLDERS_PAGE_SIZE, DEFAULT_PAGE } from "../config/apiConfig";
 import "../styles/userHome.css";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const UserHome = () => {
   console.log("UserHome rendered");
+
+  const [folders, setFolders] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const navigate = useNavigate();
-  const directories = [
-    { id: 1, name: "Directory 1" },
-    { id: 2, name: "Directory 2" },
-    { id: 3, name: "Directory 3" },
-    { id: 4, name: "Directory 4" },
-    { id: 5, name: "Directory 5" },
-    { id: 6, name: "Directory 6" },
-    { id: 7, name: "Directory 7" },
-    { id: 8, name: "Directory 8" },
-    { id: 9, name: "Directory 9" },
-    { id: 10, name: "Directory 10" },
-  ];
 
   const handleDirectoryClick = (id) => {
     console.log(`Clicked directory with ID: ${id}`);
     // Add logic to handle directory click, e.g., navigate or fetch data
   };
 
+  const updateData = (data) => {
+    setFolders(data["items"]);
+    setCurrentPage(data["page"])
+    setTotalPages(data["totalPages"])
+    console.log(data)
+  }
+
   useEffect(() => {
-    validateSession(navigate);
+    const initialize = async () => {
+      try {
+        // Validate session first
+        await validateSession(navigate);
+
+        // If session is valid, fetch folders
+        const data = await fetchFolders(DEFAULT_PAGE, FOLDERS_PAGE_SIZE)
+        if (!Object.keys(data).length === 0) {
+          updateData(data)
+        }
+
+      } catch (error) {
+        console.error('Error during initialization:', error);
+      }
+    };
+
+    initialize();
   }, [navigate]);
 
   return (
     <div className="home-container">
       <h1 className="home-title">Welcome to the User Home Page</h1>
-      <DirectoryBar directories={directories} onDirectoryClick={handleDirectoryClick} />
     </div>
   );
 };
