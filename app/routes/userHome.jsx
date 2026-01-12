@@ -1,4 +1,4 @@
-import { validateSession, fetchFolders } from "../http/apiClient";
+import { validateSession, fetchFolders, createFolder } from "../http/apiClient";
 import { useNavigate } from "react-router";
 import { FOLDERS_PAGE_SIZE, DEFAULT_PAGE } from "../config/apiConfig";
 import "../styles/userHome.css";
@@ -10,6 +10,9 @@ const UserHome = () => {
   const [folders, setFolders] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [folderName, setFolderName] = useState('');
+  const [successMessage, setSuccessMessage] = useState(''); // Przechowywanie wiadomości sukcesu
+  const [errorMessage, setErrorMessage] = useState(''); // Przechowywanie wiadomości błędu
   const navigate = useNavigate();
 
   const handleDirectoryClick = (id) => {
@@ -44,9 +47,37 @@ const UserHome = () => {
     initialize();
   }, [navigate]);
 
+  const handleCreateFolder = async () => {
+    try {
+      if (folderName.trim() === '') {
+        setErrorMessage('Folder name cannot be empty');
+        return;
+      }
+
+      await createFolder(folderName, setSuccessMessage, setErrorMessage); // Wywołanie funkcji API do tworzenia folderu
+      setFolderName(''); // Resetowanie pola nazwy folderu
+    } catch (error) {
+      console.error('Error creating folder:', error);
+      setErrorMessage('Failed to create folder. Please try again.');
+    }
+  };
+
   return (
-    <div className="home-container">
-      <h1 className="home-title">Welcome to the User Home Page</h1>
+    <div className="user-home">
+      <h1>Welcome to User Home</h1>
+
+      <div className="create-folder">
+        <input
+          type="text"
+          placeholder="Enter folder name"
+          value={folderName}
+          onChange={(e) => setFolderName(e.target.value)}
+        />
+        <button onClick={handleCreateFolder}>Create</button>
+      </div>
+
+      {successMessage && <p className="success-message">{successMessage}</p>}
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
   );
 };

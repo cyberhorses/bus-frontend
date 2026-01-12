@@ -32,4 +32,20 @@
   .pagination-info {
     @apply text-sm text-gray-700;
   }
+
+  .user-home {
+    @apply m-5;
+  }
+
+  .create-folder {
+    @apply mt-5;
+  }
+
+  .success-message {
+    @apply text-green-500;
+  }
+
+  .error-message {
+    @apply text-red-500;
+  }
 }

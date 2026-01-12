@@ -89,6 +89,28 @@ export const fetchFolders = async (pageNum, pageSize) => {
   }
 };
 
+export const createFolder = async (name, setErrorMessage, setSuccessMessage) => {
+  try {
+    const response = await fetch(API_BASEPATH + FOLDERS_PATH, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name }),
+    });
+
+    if (response.ok) {
+      setSuccessMessage('Catalog Created Successfully'); // Set success message
+    } else {
+      const errorData = await response.json();
+      setErrorMessage(errorData.error || 'Failed to create folder'); // Set error message from response
+    }
+  } catch (error) {
+    setErrorMessage('Failed to create folder.');
+    console.error('Error during folder creation:', error);
+  }
+}
+
 
 export const validateSession = async (navigate) => {
   console.log("trying to validate session")
