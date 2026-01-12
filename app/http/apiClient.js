@@ -70,7 +70,7 @@ export const handleRegister = async (username, password, setErrorMessage, setSuc
 
 export const fetchFolders = async (pageNum, pageSize) => {
   try {
-    const response = await fetch('${API_BASEPATH}${FOLDERS_PATH}?' + new URLSearchParams({
+    const response = await fetch(API_BASEPATH + FOLDERS_PATH + '?' + new URLSearchParams({
       page: pageNum,
       pageSize: pageSize
     }).toString());
