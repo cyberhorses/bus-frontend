@@ -140,6 +140,7 @@ export const validateSession = async (navigate, setUsername) => {
     const validateResponse = await fetch(API_BASEPATH + SESSION_VALIDATE_PATH);
 
     if (validateResponse.status === 200) {
+      setUsername(data["username"]);
       return;
     }
     
