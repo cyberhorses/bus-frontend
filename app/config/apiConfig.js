@@ -7,7 +7,7 @@ export const SESSION_VALIDATE_PATH =  "/session/validate"
 export const SESSION_REFRESH_PATH = "/session/manage/refresh"
 export const SESSION_LOGOUT_PATH = "/session/manage/logout"
 export const FILE_UPLOAD_PATH = "/file/upload"
-
+export const PERMISSIONS_PATH = "/permissions"
 
 
 export const FOLDERS_PAGE_SIZE = 5

@@ -1,4 +1,4 @@
-import { validateSession, fetchFolders, createFolder, logoutUser, uploadFile, fetchFolderFiles } from "../http/apiClient";
+import { validateSession, fetchFolders, createFolder, logoutUser, uploadFile, fetchFolderFiles, fetchFolderPermissions } from "../http/apiClient";
 import { useNavigate } from "react-router";
 import { FOLDERS_PAGE_SIZE, DEFAULT_PAGE, LOGIN_PATH, FILES_PAGE_SIZE } from "../config/apiConfig";
 import { useEffect, useState } from "react";
@@ -26,7 +26,8 @@ const UserHome = () => {
   // folder creation
   const [folderName, setFolderName] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState(''); 
+  const [errorMessage, setErrorMessage] = useState('');
+  const [currentFolderPermissions, setCurrentFolderPermissions] = useState(null)
 
   // user info
   const [username, setUsername] = useState('');
@@ -34,11 +35,14 @@ const UserHome = () => {
 
   const navigate = useNavigate();
 
-  const handleFolderClick = (id) => {
+  const handleFolderClick = async (id) => {
     console.log(`Clicked directory with ID: ${id}`);
     setCurrentFolder(id);
     updateFilesData(id, DEFAULT_PAGE);
-    // Add logic to handle directory click, e.g., navigate or fetch data
+
+    // Simulate fetching permissions for the clicked folder
+    const permissions = await fetchFolderPermissions(id); // Replace with actual API call
+    setCurrentFolderPermissions(permissions);
   };
 
   const updateFoldersData = async (page) => {
@@ -48,6 +52,7 @@ const UserHome = () => {
     setTotalFolderPages(data["totalPages"])
     console.log(data);
   }
+
 
   const updateFilesData = async (folderId, page) => {
     try {
@@ -225,11 +230,6 @@ const UserHome = () => {
       {successMessage && <p className="success-message">{successMessage}</p>}
       {errorMessage && <p className="error-message">{errorMessage}</p>}
 
-      <form onSubmit={handleFileUpload} className="file-upload-form">
-        <input type="file" name="file" />
-        <input type="hidden" name="dir" value={currentFolder} />
-        <button type="submit">Upload File</button>
-      </form>
 
       <FileList
         files={files}
@@ -239,6 +239,24 @@ const UserHome = () => {
         totalFilePages={totalFilePages}
         onPageChange={setCurrentFilePage}
       /> {/* Render FileList component here */}
+
+      <form onSubmit={handleFileUpload} className="file-upload-form">
+        <input type="file" name="file" />
+        <input type="hidden" name="dir" value={currentFolder} />
+        <button type="submit">Upload File</button>
+      </form>
+
+      {currentFolderPermissions && (
+        <div className="permissions">
+          <h3>Folder Permissions</h3>
+          <ul>
+            <li>Owner: {currentFolderPermissions.is_owner ? "Yes" : "No"}</li>
+            <li>Read: {currentFolderPermissions.read ? "Yes" : "No"}</li>
+            <li>Upload: {currentFolderPermissions.upload ? "Yes" : "No"}</li>
+            <li>Delete: {currentFolderPermissions.delete ? "Yes" : "No"}</li>
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

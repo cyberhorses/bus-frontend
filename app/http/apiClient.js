@@ -7,7 +7,8 @@ import {
     SESSION_REFRESH_PATH,
     SESSION_LOGOUT_PATH,
     FILE_UPLOAD_PATH,
-    FILES_PATH
+    FILES_PATH,
+    PERMISSIONS_PATH
 } from "../config/apiConfig"
 
 // REAL
@@ -110,6 +111,21 @@ export const fetchFolderFiles = async (folder_id, pageNum, pageSize) => {
   }
   return {};
 };
+
+export const fetchFolderPermissions = async (folder_id) => {
+  try{
+    const response = await fetch(API_BASEPATH + FOLDERS_PATH + "/" + folder_id + PERMISSIONS_PATH)
+    if (response.ok){
+      const data = await response.json();
+      return data;
+    } else {
+      console.error('Failed to fetch catalogs:', response.status, response.statusText);
+    }
+  } catch (error) {
+    console.error('Error during fetchCatalogs:', error);
+  }
+  return {};
+}
 
 export const createFolder = async (name, setErrorMessage, setSuccessMessage) => {
   try {
