@@ -244,7 +244,7 @@ const UserHome = () => {
         onFileSelect={setSelectedFileId}
         currentFilePage={currentFilePage}
         totalFilePages={totalFilePages}
-        onPageChange={setCurrentFilePage}
+        onPageChange={updateFilesData}
       /> {/* Render FileList component here */}
 
       {currentFolder && currentFolderPermissions && currentFolderPermissions.upload && (
