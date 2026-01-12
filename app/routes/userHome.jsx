@@ -1,7 +1,6 @@
 import { validateSession, fetchFolders, createFolder, logoutUser, uploadFile, fetchFolderFiles } from "../http/apiClient";
 import { useNavigate } from "react-router";
 import { FOLDERS_PAGE_SIZE, DEFAULT_PAGE, LOGIN_PATH, FILES_PAGE_SIZE } from "../config/apiConfig";
-import "../styles/userHome.css";
 import { useEffect, useState } from "react";
 import { FolderBar } from "../widgets/folderBar";
 

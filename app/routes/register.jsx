@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link } from "react-router";
 import { useNavigate } from "react-router";
 import { handleRegister } from "../http/apiClient";
-import "../styles/login.css";
 
 const Register = () => {
   const [username, setUsername] = useState("");
