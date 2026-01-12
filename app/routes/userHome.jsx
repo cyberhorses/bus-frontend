@@ -15,12 +15,12 @@ const UserHome = () => {
   // files list
   const [currentFilePage, setCurrentFilePage] = useState(DEFAULT_PAGE);
   const [totalFilePages, setTotalFilePages] = useState(1);
-  // const [files, setFiles] = useState([]); // Moved files state here
-  const files = [
-    { id: "e2a12f42-8dd6-4158-b36f-d79d92870264", name: "text.txt", size: "4MB" },
-    { id: "a3b45c67-9ef8-4abc-8d12-ef5678901234", name: "image.png", size: "2MB" },
-    { id: "c4d56e78-1abc-4def-9a34-ef6789012345", name: "video.mp4", size: "20MB" },
-  ];
+  const [files, setFiles] = useState([]); // Moved files state here
+  // const files = [
+  //   { id: "e2a12f42-8dd6-4158-b36f-d79d92870264", name: "text.txt", size: "4MB" },
+  //   { id: "a3b45c67-9ef8-4abc-8d12-ef5678901234", name: "image.png", size: "2MB" },
+  //   { id: "c4d56e78-1abc-4def-9a34-ef6789012345", name: "video.mp4", size: "20MB" },
+  // ];
   const [selectedFileId, setSelectedFileId] = useState(null); // Lifted selectedFileId state
 
   // folder creation
@@ -58,7 +58,7 @@ const UserHome = () => {
     try {
       const data = await fetchFolderFiles(folderId, page, FILES_PAGE_SIZE);
       console.log(data);
-      // setFiles(data["items"]); // Update files state here
+      setFiles(data["items"]); // Update files state here
       setCurrentFilePage(data["page"]);
       setTotalFilePages(data["totalPages"]);
     } catch (error) {
