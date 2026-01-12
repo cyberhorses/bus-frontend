@@ -31,6 +31,7 @@ const UserHome = () => {
 
   // user info
   const [username, setUsername] = useState('');
+  const [isLoading, setIsLoading] = useState(true);
 
   const navigate = useNavigate();
 
@@ -64,13 +65,18 @@ const UserHome = () => {
   useEffect(() => {
     const initialize = async () => {
       try {
+        setIsLoading(true); // Start loading
+
         // Validate session first
         await validateSession(navigate, setUsername);
 
-        updateFoldersData(currentFolderPage);
-
+        await updateFoldersData(currentFolderPage);
+        // Optionally, preload files for the first folder if needed
+        // await updateFilesData(currentFolder, currentFilePage);
       } catch (error) {
         console.error('Error during initialization:', error);
+      } finally {
+        setIsLoading(false); // End loading
       }
     };
 
@@ -171,6 +177,14 @@ const UserHome = () => {
       </div>
     );
   };
+
+  if (isLoading) {
+    return (
+      <div className="loading-screen">
+        <p>Loading...</p>
+      </div>
+    );
+  }
 
   return (
     <div className="user-home">
