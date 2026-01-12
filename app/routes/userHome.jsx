@@ -206,6 +206,7 @@ const UserHome = () => {
         currentPage={currentFolderPage}
         totalPages={totalFolderPages}
         onPageChange={handlePageChange}
+        username={username}
       />
 
       <div className="create-folder">

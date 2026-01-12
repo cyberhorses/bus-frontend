@@ -1,4 +1,4 @@
-export const FolderBar = ({ folders, onFolderClick, currentPage, totalPages, onPageChange }) => {
+export const FolderBar = ({ folders, onFolderClick, currentPage, totalPages, onPageChange, username }) => {
   return (
     <div>
       <h2>Available folders</h2>
@@ -9,7 +9,7 @@ export const FolderBar = ({ folders, onFolderClick, currentPage, totalPages, onP
             className="folder-item"
             onClick={() => onFolderClick(folder.id)}
           >
-            {folder.name}
+            {folder.ownerUsername !== username ? `${folder.ownerUsername}/${folder.name}` : folder.name}
           </div>
         ))}
       </div>
