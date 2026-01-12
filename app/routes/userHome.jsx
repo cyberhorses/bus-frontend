@@ -287,7 +287,12 @@ const UserHome = () => {
           className="delete-button"
           onClick={async () => {
             await deleteFile(selectedFileId);
-            updateFilesData(currentFolder, currentFilePage);
+
+            if (files.length === 1 && currentFilePage > 1) {
+              updateFilesData(currentFolder, currentFilePage - 1);
+            } else {
+              updateFilesData(currentFolder, currentFilePage);
+            }
           }}
         >
           Delete
