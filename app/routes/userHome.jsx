@@ -276,7 +276,7 @@ const UserHome = () => {
         </div>
       )}
 
-      {currentFolderPermissions.read && selectedFileId && (
+      {currentFolderPermissions && currentFolderPermissions.read && selectedFileId && (
         <button className="download-button" onClick={() => downloadFile(selectedFileId)}>
           Download
         </button>
