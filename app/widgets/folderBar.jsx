@@ -1,6 +1,6 @@
 export const FolderBar = ({ folders, onFolderClick, currentPage, totalPages, onPageChange }) => {
   return (
-    <div className="folder-pagination-wrapper">
+    <div>
       <div className="folder-bar">
         {folders.map((folder) => (
           <div
