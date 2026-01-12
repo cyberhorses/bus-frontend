@@ -42,8 +42,6 @@ const FolderBar = ({ folders, onFolderClick, currentPage, totalPages, onPageChan
 };
 
 const UserHome = () => {
-  console.log("UserHome rendered");
-
   const [folders, setFolders] = useState([]);
   const [currentPage, setCurrentPage] = useState(DEFAULT_PAGE);
   const [totalPages, setTotalPages] = useState(1);
@@ -91,6 +89,7 @@ const UserHome = () => {
 
       await createFolder(folderName, setErrorMessage, setSuccessMessage); // Wywołanie funkcji API do tworzenia folderu
       setFolderName(''); // Resetowanie pola nazwy folderu
+      updateData(currentPage);
       
     } catch (error) {
       console.error('Error creating folder:', error);
