@@ -9,8 +9,8 @@ import { FolderBar } from "../widgets/folderBar";
 
 const UserHome = () => {
   const [folders, setFolders] = useState([]);
-  const [currentPage, setCurrentPage] = useState(DEFAULT_PAGE);
-  const [totalPages, setTotalPages] = useState(1);
+  const [currentFolderPage, setCurrentFolderPage] = useState(DEFAULT_PAGE);
+  const [totalFolderPages, setTotalFolderPages] = useState(1);
   const [folderName, setFolderName] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState(''); 
@@ -24,11 +24,11 @@ const UserHome = () => {
     // Add logic to handle directory click, e.g., navigate or fetch data
   };
 
-  const updateData = async (page) => {
+  const updateFoldersData = async (page) => {
     const data = await fetchFolders(page, FOLDERS_PAGE_SIZE)
     setFolders(data["items"]);
-    setCurrentPage(data["page"])
-    setTotalPages(data["totalPages"])
+    setCurrentFolderPage(data["page"])
+    setTotalFolderPages(data["totalPages"])
     console.log(data);
     console.log(folders);
   }
@@ -39,7 +39,7 @@ const UserHome = () => {
         // Validate session first
         await validateSession(navigate, setUsername);
 
-        updateData(currentPage);
+        updateFoldersData(currentFolderPage);
 
       } catch (error) {
         console.error('Error during initialization:', error);
@@ -58,7 +58,7 @@ const UserHome = () => {
 
       await createFolder(folderName, setErrorMessage, setSuccessMessage); // Wywołanie funkcji API do tworzenia folderu
       setFolderName(''); // Resetowanie pola nazwy folderu
-      updateData(currentPage);
+      updateFoldersData(currentFolderPage);
       
     } catch (error) {
       console.error('Error creating folder:', error);
@@ -68,7 +68,7 @@ const UserHome = () => {
 
   const handlePageChange = async (newPage) => {
     try {
-      updateData(newPage);
+      updateFoldersData(newPage);
     } catch (error) {
       console.error("Error fetching folders for new page:", error);
     }
@@ -114,8 +114,8 @@ const UserHome = () => {
       <FolderBar
         folders={folders}
         onFolderClick={handleFolderClick}
-        currentPage={currentPage}
-        totalPages={totalPages}
+        currentPage={currentFolderPage}
+        totalPages={totalFolderPages}
         onPageChange={handlePageChange}
       />
 
