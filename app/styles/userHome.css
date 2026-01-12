@@ -18,7 +18,7 @@
   }
 
   .pagination-controls {
-    @apply flex items-center gap-2;
+    @apply flex items-center gap-2 mt-2;
   }
 
   .pagination-button {
@@ -27,6 +27,10 @@
 
   .pagination-button:disabled {
     @apply bg-gray-300 cursor-not-allowed;
+  }
+
+  .pagination-button:hover:not(:disabled) {
+    @apply bg-blue-700;
   }
 
   .pagination-info {

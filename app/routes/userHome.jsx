@@ -4,18 +4,39 @@ import { FOLDERS_PAGE_SIZE, DEFAULT_PAGE } from "../config/apiConfig";
 import "../styles/userHome.css";
 import { useEffect, useState } from "react";
 
-const FolderBar = ({ folders, onFolderClick }) => {
+const FolderBar = ({ folders, onFolderClick, currentPage, totalPages, onPageChange }) => {
   return (
-    <div className="folder-bar">
-      {folders.map((folder) => (
-        <div
-          key={folder.id}
-          className="folder-item"
-          onClick={() => onFolderClick(folder.id)}
+    <div>
+      <div className="folder-bar">
+        {folders.map((folder) => (
+          <div
+            key={folder.id}
+            className="folder-item"
+            onClick={() => onFolderClick(folder.id)}
+          >
+            {folder.name}
+          </div>
+        ))}
+      </div>
+      <div className="pagination-controls">
+        <button
+          className="pagination-button"
+          onClick={() => onPageChange(currentPage - 1)}
+          disabled={currentPage === 1}
         >
-          {folder.name}
-        </div>
-      ))}
+          Previous
+        </button>
+        <span className="pagination-info">
+          Page {currentPage} of {totalPages}
+        </span>
+        <button
+          className="pagination-button"
+          onClick={() => onPageChange(currentPage + 1)}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </button>
+      </div>
     </div>
   );
 };
@@ -36,7 +57,8 @@ const UserHome = () => {
     // Add logic to handle directory click, e.g., navigate or fetch data
   };
 
-  const updateData = (data) => {
+  const updateData = async () => {
+    const data = await fetchFolders(DEFAULT_PAGE, FOLDERS_PAGE_SIZE)
     setFolders(data["items"]);
     setCurrentPage(data["page"])
     setTotalPages(data["totalPages"])
@@ -50,11 +72,7 @@ const UserHome = () => {
         // Validate session first
         await validateSession(navigate);
 
-        // If session is valid, fetch folders
-        const data = await fetchFolders(DEFAULT_PAGE, FOLDERS_PAGE_SIZE)
-        if (Object.keys(data).length !== 0) {
-          updateData(data)
-        }
+        updateData();
 
       } catch (error) {
         console.error('Error during initialization:', error);
@@ -73,9 +91,19 @@ const UserHome = () => {
 
       await createFolder(folderName, setErrorMessage, setSuccessMessage); // Wywołanie funkcji API do tworzenia folderu
       setFolderName(''); // Resetowanie pola nazwy folderu
+      
     } catch (error) {
       console.error('Error creating folder:', error);
       setErrorMessage('Failed to create folder. Please try again.');
+    }
+  };
+
+  const handlePageChange = async (newPage) => {
+    try {
+      setCurrentPage(newPage);
+      updateData();
+    } catch (error) {
+      console.error("Error fetching folders for new page:", error);
     }
   };
 
@@ -83,7 +111,13 @@ const UserHome = () => {
     <div className="user-home">
       <h1>Welcome to User Home</h1>
 
-      <FolderBar folders={folders} onFolderClick={handleDirectoryClick} />
+      <FolderBar
+        folders={folders}
+        onFolderClick={handleDirectoryClick}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        onPageChange={handlePageChange}
+      />
 
       <div className="create-folder">
         <input
