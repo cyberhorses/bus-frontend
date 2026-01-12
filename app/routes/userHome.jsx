@@ -1,6 +1,6 @@
 import { validateSession, fetchFolders, createFolder, logoutUser, uploadFile, fetchFolderFiles } from "../http/apiClient";
 import { useNavigate } from "react-router";
-import { FOLDERS_PAGE_SIZE, DEFAULT_PAGE, LOGIN_PATH } from "../config/apiConfig";
+import { FOLDERS_PAGE_SIZE, DEFAULT_PAGE, LOGIN_PATH, FILES_PAGE_SIZE } from "../config/apiConfig";
 import "../styles/userHome.css";
 import { useEffect, useState } from "react";
 import { FolderBar } from "../widgets/folderBar";
@@ -47,11 +47,11 @@ const UserHome = () => {
     if (currentFolder === '') return;
 
     try {
-      const data = await fetchFolderFiles(folderId, page);
+      const data = await fetchFolderFiles(folderId, page, FILES_PAGE_SIZE);
       console.log(files);
-      setFiles(data.items);
-      setCurrentFilePage(data.page);
-      setTotalFilePages(data.totalPages);
+      setFiles(data["items"]);
+      setCurrentFilePage(data["page"]);
+      setTotalFilePages(data["totalPages"]);
     } catch (error) {
       console.error("Error fetching files:", error);
     }

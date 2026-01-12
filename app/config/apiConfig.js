@@ -10,4 +10,5 @@ export const FILE_UPLOAD_PATH = "/file/upload"
 
 
 export const FOLDERS_PAGE_SIZE = 5
+export const FILES_PAGE_SIZE = 10
 export const DEFAULT_PAGE = 1
