@@ -1,4 +1,4 @@
-import { validateSession, fetchFolders, createFolder, logoutUser, uploadFile } from "../http/apiClient";
+import { validateSession, fetchFolders, createFolder, logoutUser, uploadFile, fetchFolderFiles } from "../http/apiClient";
 import { useNavigate } from "react-router";
 import { FOLDERS_PAGE_SIZE, DEFAULT_PAGE, LOGIN_PATH } from "../config/apiConfig";
 import "../styles/userHome.css";
@@ -8,19 +8,30 @@ import { FolderBar } from "../widgets/folderBar";
 
 
 const UserHome = () => {
+  // folders bar
   const [folders, setFolders] = useState([]);
   const [currentFolderPage, setCurrentFolderPage] = useState(DEFAULT_PAGE);
   const [totalFolderPages, setTotalFolderPages] = useState(1);
+  const [currentFolder, setCurrentFolder] = useState('')
+  // files list
+  const [currentFilePage, setCurrentFilePage] = useState(DEFAULT_PAGE);
+  const [totalFilePages, setTotalFilePages] = useState(1);
+  const [files, setFiles] = useState([])
+
+  // folder creation
   const [folderName, setFolderName] = useState('');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState(''); 
+
+  // user info
   const [username, setUsername] = useState('');
-  const [currentFolder, setCurrentFolder] = useState('')
+
   const navigate = useNavigate();
 
   const handleFolderClick = (id) => {
     console.log(`Clicked directory with ID: ${id}`);
     setCurrentFolder(id);
+    updateFilesData(id, DEFAULT_PAGE);
     // Add logic to handle directory click, e.g., navigate or fetch data
   };
 
@@ -30,7 +41,20 @@ const UserHome = () => {
     setCurrentFolderPage(data["page"])
     setTotalFolderPages(data["totalPages"])
     console.log(data);
-    console.log(folders);
+  }
+
+  const updateFilesData = async (folderId, page) => {
+    if (currentFolder === '') return;
+
+    try {
+      const data = await fetchFolderFiles(folderId, page);
+      console.log(files);
+      setFiles(data.items);
+      setCurrentFilePage(data.page);
+      setTotalFilePages(data.totalPages);
+    } catch (error) {
+      console.error("Error fetching files:", error);
+    }
   }
 
   useEffect(() => {
