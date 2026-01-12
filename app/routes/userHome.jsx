@@ -118,10 +118,13 @@ const UserHome = () => {
 
   const handleFileUpload = async (event) => {
     event.preventDefault();
-    const fileInput = event.target.files[0];
-    const dirInput = event.target.elements.dir;
-    const file = fileInput.files[0];
-    const dir = dirInput.value;
+
+    const form = event.target;
+    const fileInput = form.querySelector("input[type='file']");
+    const dirInput = form.querySelector("input[name='dir']");
+
+    const file = fileInput?.files[0];
+    const dir = dirInput?.value;
 
     if (!file) {
       console.error("No file selected");
