@@ -3,43 +3,9 @@ import { useNavigate } from "react-router";
 import { FOLDERS_PAGE_SIZE, DEFAULT_PAGE, LOGIN_PATH } from "../config/apiConfig";
 import "../styles/userHome.css";
 import { useEffect, useState } from "react";
+import { FolderBar } from "../widgets/folderBar";
 
-const FolderBar = ({ folders, onFolderClick, currentPage, totalPages, onPageChange }) => {
-  return (
-    <div>
-      <div className="folder-bar">
-        {folders.map((folder) => (
-          <div
-            key={folder.id}
-            className="folder-item"
-            onClick={() => onFolderClick(folder.id)}
-          >
-            {folder.name}
-          </div>
-        ))}
-      </div>
-      <div className="pagination-controls">
-        <button
-          className="pagination-button"
-          onClick={() => onPageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </button>
-        <span className="pagination-info">
-          Page {currentPage} of {totalPages}
-        </span>
-        <button
-          className="pagination-button"
-          onClick={() => onPageChange(currentPage + 1)}
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </button>
-      </div>
-    </div>
-  );
-};
+
 
 const UserHome = () => {
   const [folders, setFolders] = useState([]);
@@ -54,7 +20,7 @@ const UserHome = () => {
 
   const handleFolderClick = (id) => {
     console.log(`Clicked directory with ID: ${id}`);
-    setCurrentFolder(id)
+    setCurrentFolder(id);
     // Add logic to handle directory click, e.g., navigate or fetch data
   };
 

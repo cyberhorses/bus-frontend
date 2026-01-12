@@ -81,7 +81,6 @@ export const fetchFolders = async (pageNum, pageSize) => {
       const data = await response.json();
       return data;
     } else {
-      // TODO handle invalid response
       console.error('Failed to fetch catalogs:', response.status, response.statusText);
       return {}; // Return an empty object if the response is not OK
     }
@@ -89,6 +88,24 @@ export const fetchFolders = async (pageNum, pageSize) => {
     console.error('Error during fetchCatalogs:', error);
     return {}; // Return an empty object in case of an error
   }
+};
+
+export const fetchFolderFiles = async (folder_id, pageNum, pageSize) => {
+  try{
+    const response = await fetch(API_BASEPATH + FOLDERS_PATH + '/' + folder_id + "?" + new URLSearchParams({
+      page: pageNum,
+      pageSize: pageSize
+    }).toString());
+
+    if (response.ok){
+      return data;
+    } else {
+      console.error('Failed to fetch catalogs:', response.status, response.statusText);
+    }
+  } catch (error) {
+    console.error('Error during fetchCatalogs:', error);
+  }
+  return {};
 };
 
 export const createFolder = async (name, setErrorMessage, setSuccessMessage) => {
