@@ -16,11 +16,13 @@ const UserHome = () => {
   // files list
   const [currentFilePage, setCurrentFilePage] = useState(DEFAULT_PAGE);
   const [totalFilePages, setTotalFilePages] = useState(1);
+  // const [files, setFiles] = useState([]); // Moved files state here
   const files = [
     { id: "e2a12f42-8dd6-4158-b36f-d79d92870264", name: "text.txt", size: "4MB" },
     { id: "a3b45c67-9ef8-4abc-8d12-ef5678901234", name: "image.png", size: "2MB" },
     { id: "c4d56e78-1abc-4def-9a34-ef6789012345", name: "video.mp4", size: "20MB" },
   ];
+  const [selectedFileId, setSelectedFileId] = useState(null); // Lifted selectedFileId state
 
   // folder creation
   const [folderName, setFolderName] = useState('');
@@ -51,7 +53,7 @@ const UserHome = () => {
     try {
       const data = await fetchFolderFiles(folderId, page, FILES_PAGE_SIZE);
       console.log(data);
-      // setFiles(data["items"]);
+      // setFiles(data["items"]); // Update files state here
       setCurrentFilePage(data["page"]);
       setTotalFilePages(data["totalPages"]);
     } catch (error) {
@@ -128,6 +130,27 @@ const UserHome = () => {
     }
   };
 
+  const FileList = ({ files, selectedFileId, onFileSelect }) => {
+    const handleFileClick = (id) => {
+      onFileSelect(id);
+    };
+
+    return (
+      <div className="file-list">
+        {files.map((file) => (
+          <div
+            key={file.id}
+            className={`file-item ${selectedFileId === file.id ? "selected" : ""}`}
+            onClick={() => handleFileClick(file.id)}
+          >
+            <span className="file-name">{file.name}</span>
+            <span className="file-size">{file.size}</span>
+          </div>
+        ))}
+      </div>
+    );
+  };
+
   return (
     <div className="user-home">
       {/* <div className="top-bar">
@@ -173,6 +196,15 @@ const UserHome = () => {
         <input type="hidden" name="dir" value={currentFolder} />
         <button type="submit">Upload File</button>
       </form>
+
+      <FileList
+        files={files}
+        selectedFileId={selectedFileId}
+        onFileSelect={setSelectedFileId}
+      /> {/* Render FileList component here */}
+      <div>
+        <p>Selected File ID: {selectedFileId}</p>
+      </div>
     </div>
   );
 };
