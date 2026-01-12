@@ -8,4 +8,4 @@ export const SESSION_REFRESH_PATH = "/session/manage/refresh"
 
 
 export const FOLDERS_PAGE_SIZE = 5
-export const DEFAULT_PAGE = 0
+export const DEFAULT_PAGE = 1
