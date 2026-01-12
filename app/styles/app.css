@@ -58,11 +58,19 @@
   }
 
   .folder-item {
-    @apply py-2 px-4 bg-blue-500 text-white rounded-md cursor-pointer whitespace-nowrap transition-transform transform;
+    @apply px-4 py-2 rounded-md cursor-pointer transition;
+  }
+
+  .folder-item.owner {
+    @apply bg-gray-400 text-white;
+  }
+
+  .folder-item:not(.owner) {
+    @apply bg-blue-600 text-white;
   }
 
   .folder-item:hover {
-    @apply bg-blue-600 scale-105;
+    @apply bg-blue-700;
   }
 
   .top-bar {
