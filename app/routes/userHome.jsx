@@ -4,6 +4,22 @@ import { FOLDERS_PAGE_SIZE, DEFAULT_PAGE } from "../config/apiConfig";
 import "../styles/userHome.css";
 import { useEffect, useState } from "react";
 
+const FolderBar = ({ folders, onFolderClick }) => {
+  return (
+    <div className="folder-bar">
+      {folders.map((folder) => (
+        <div
+          key={folder.id}
+          className="folder-item"
+          onClick={() => onFolderClick(folder.id)}
+        >
+          {folder.name}
+        </div>
+      ))}
+    </div>
+  );
+};
+
 const UserHome = () => {
   console.log("UserHome rendered");
 
@@ -54,7 +70,7 @@ const UserHome = () => {
         return;
       }
 
-      await createFolder(folderName, setSuccessMessage, setErrorMessage); // Wywołanie funkcji API do tworzenia folderu
+      await createFolder(folderName, setErrorMessage, setSuccessMessage); // Wywołanie funkcji API do tworzenia folderu
       setFolderName(''); // Resetowanie pola nazwy folderu
     } catch (error) {
       console.error('Error creating folder:', error);
@@ -65,6 +81,8 @@ const UserHome = () => {
   return (
     <div className="user-home">
       <h1>Welcome to User Home</h1>
+
+      <FolderBar folders={folders} onFolderClick={handleDirectoryClick} />
 
       <div className="create-folder">
         <input
