@@ -98,7 +98,7 @@
   }
 
   .file-list {
-    @apply flex flex-col gap-2;
+    @apply flex flex-col gap-2 min-h-[200px] border border-gray-300 rounded-md;
   }
 
   .file-item {
