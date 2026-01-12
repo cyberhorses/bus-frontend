@@ -118,7 +118,7 @@ const UserHome = () => {
 
   const handleFileUpload = async (event) => {
     event.preventDefault();
-    const fileInput = event.target.elements.file;
+    const fileInput = event.target.files[0];
     const dirInput = event.target.elements.dir;
     const file = fileInput.files[0];
     const dir = dirInput.value;
