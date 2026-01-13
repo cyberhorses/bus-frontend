@@ -224,8 +224,6 @@ export const uploadFile = async (formData) => {
 };
 
 export const downloadFile = async (file_id) => {
-  console.trace();
-  console.log("in download file after trace");
   try {
     const response = await fetch(API_BASEPATH + FILE_DOWNLOAD_PATH + file_id);
     if (!response.ok) {
@@ -254,12 +252,11 @@ export const downloadFile = async (file_id) => {
 }
 
 export const deleteFile = async (file_id) => {
-  const response = await fetch(API_BASEPATH + FILE_DOWNLOAD_PATH + file_id, {
-    method: "DELETE"
-  });
-
   try{
-    const response = await fetch(API_BASEPATH + FILE_DOWNLOAD_PATH + file_id);
+    const response = await fetch(API_BASEPATH + FILE_DOWNLOAD_PATH + file_id, {
+      method: "DELETE"
+    });
+    
     if (!response.ok){
       console.log("file delete failed");
     }

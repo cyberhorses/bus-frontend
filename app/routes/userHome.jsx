@@ -280,7 +280,6 @@ const UserHome = () => {
         <button
           className="download-button"
           onClick={() => {
-            console.log(`Download button clicked for file ID: ${selectedFileId}`);
             downloadFile(selectedFileId);
           }}
         >
