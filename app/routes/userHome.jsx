@@ -40,6 +40,7 @@ const UserHome = () => {
   const handleFolderClick = async (id) => {
     console.log(`Clicked directory with ID: ${id}`);
     setCurrentFolder(id);
+    setSelectedFileId(null); // Reset selected file ID
     updateFilesData(id, DEFAULT_PAGE);
 
     // Simulate fetching permissions for the clicked folder
