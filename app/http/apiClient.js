@@ -264,3 +264,31 @@ export const deleteFile = async (file_id) => {
     console.error("Error during file upload:", error);
   }
 }
+
+export const createFolderPermission = async (folder_id, username, can_read, can_upload, can_delete, setMessage) => {
+  const body = {
+    username: username,
+    perms: {
+      read: can_read,
+      upload: can_upload,
+      delete: can_delete
+    }
+  }
+  try{
+    const response = await fetch(API_BASEPATH + FOLDERS_PATH + "/" + folder_id + PERMISSIONS_PATH, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(body)
+    })
+    if (response.ok){
+      setMessage('Permissions successfully granted to ' + username);
+    } else {
+      const data = await response.json();
+      setMessage(data["error"]);
+    }
+  } catch (error) {
+    console.error('Error in creation folder permission');
+  }
+}
