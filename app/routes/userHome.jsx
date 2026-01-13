@@ -1,4 +1,4 @@
-import { validateSession, fetchFolders, createFolder, logoutUser, uploadFile, fetchFolderFiles, fetchFolderPermissions, downloadFile, deleteFile } from "../http/apiClient";
+import { validateSession, fetchFolders, createFolder, logoutUser, uploadFile, fetchFolderFiles, fetchFolderPermissions, downloadFile, deleteFile, manageFolderPermission } from "../http/apiClient";
 import { useNavigate } from "react-router";
 import { FOLDERS_PAGE_SIZE, DEFAULT_PAGE, LOGIN_PATH, FILES_PAGE_SIZE } from "../config/apiConfig";
 import { useEffect, useState } from "react";
@@ -32,6 +32,8 @@ const UserHome = () => {
   // user info
   const [username, setUsername] = useState('');
   const [isLoading, setIsLoading] = useState(true);
+
+  const [permsPanelMessage, setPermsPanelMessage] = useState('');
 
   const navigate = useNavigate();
 
@@ -245,7 +247,7 @@ const UserHome = () => {
         currentFilePage={currentFilePage}
         totalFilePages={totalFilePages}
         onPageChange={updateFilesData}
-      /> {/* Render FileList component here */}
+      />
 
       {currentFolder && currentFolderPermissions && currentFolderPermissions.upload && (
         <form className="file-upload-form" onSubmit={handleFileUpload}>
@@ -302,6 +304,67 @@ const UserHome = () => {
         >
           Delete file
         </button>
+      )}
+
+      {currentFolderPermissions && currentFolderPermissions.is_owner && (
+        <div className="manage-permissions-panel">
+          <h3>Manage Permissions</h3>
+          <form
+            onSubmit={async (event) => {
+              event.preventDefault();
+
+              const form = event.currentTarget;
+              const username = form.elements.username.value;
+              const read = form.elements.read.checked;
+              const upload = form.elements.upload.checked;
+              const deletePerm = form.elements.delete.checked;
+
+              const permissions = {
+                username,
+                perms: {
+                  read,
+                  upload,
+                  delete: deletePerm,
+                },
+              };
+
+              try {
+                await manageFolderPermission(currentFolder, permissions, setPermsPanelMessage);
+              } catch (error) {
+                console.error("Error updating permissions:", error);
+              }
+            }}
+          >
+            <div className="form-group">
+              <label htmlFor="username">Username:</label>
+              <input type="text" id="username" name="username" required />
+            </div>
+
+            <div className="form-group">
+              <label>
+                <input type="checkbox" name="read" /> Read
+              </label>
+            </div>
+
+            <div className="form-group">
+              <label>
+                <input type="checkbox" name="upload" /> Upload
+              </label>
+            </div>
+
+            <div className="form-group">
+              <label>
+                <input type="checkbox" name="delete" /> Delete
+              </label>
+            </div>
+
+            <button type="submit">Update Permissions</button>
+          </form>
+
+          {permsPanelMessage && (
+            <p className="permissions-message">{permsPanelMessage}</p>
+          )}
+        </div>
       )}
     </div>
   );

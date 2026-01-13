@@ -1,6 +1,6 @@
 export function meta() {
   return [
-    { title: "BUS bleble" },
+    { title: "BUS APP" },
     { name: "description", content: "Welcome to React Router!" },
   ];
 }

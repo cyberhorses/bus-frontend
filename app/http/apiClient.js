@@ -265,22 +265,14 @@ export const deleteFile = async (file_id) => {
   }
 }
 
-export const createFolderPermission = async (folder_id, username, can_read, can_upload, can_delete, setMessage) => {
-  const body = {
-    username: username,
-    perms: {
-      read: can_read,
-      upload: can_upload,
-      delete: can_delete
-    }
-  }
+export const manageFolderPermission = async (folder_id, permissions, setMessage) => {
   try{
     const response = await fetch(API_BASEPATH + FOLDERS_PATH + "/" + folder_id + PERMISSIONS_PATH, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(body)
+      body: JSON.stringify(permissions)
     })
     if (response.ok){
       setMessage('Permissions successfully granted to ' + username);
