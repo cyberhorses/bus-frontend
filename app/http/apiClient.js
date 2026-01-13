@@ -84,11 +84,11 @@ export const fetchFolders = async (pageNum, pageSize) => {
       const data = await response.json();
       return data;
     } else {
-      console.error('Failed to fetch catalogs:', response.status, response.statusText);
+      console.error('Failed to fetch folders:', response.status, response.statusText);
       return {}; // Return an empty object if the response is not OK
     }
   } catch (error) {
-    console.error('Error during fetchCatalogs:', error);
+    console.error('Error during fetchFolders:', error);
     return {}; // Return an empty object in case of an error
   }
 };
@@ -105,10 +105,10 @@ export const fetchFolderFiles = async (folder_id, pageNum, pageSize) => {
       const data = await response.json();
       return data;
     } else {
-      console.error('Failed to fetch catalogs:', response.status, response.statusText);
+      console.error('Failed to fetch files:', response.status, response.statusText);
     }
   } catch (error) {
-    console.error('Error during fetchCatalogs:', error);
+    console.error('Error during fetchFolderFiles:', error);
   }
   return {};
 };
@@ -120,10 +120,10 @@ export const fetchFolderPermissions = async (folder_id) => {
       const data = await response.json();
       return data;
     } else {
-      console.error('Failed to fetch catalogs:', response.status, response.statusText);
+      console.error('Failed to fetch folders permissions:', response.status, response.statusText);
     }
   } catch (error) {
-    console.error('Error during fetchCatalogs:', error);
+    console.error('Error during fetch folders permissions:', error);
   }
   return {};
 }
