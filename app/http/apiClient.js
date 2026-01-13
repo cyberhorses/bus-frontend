@@ -275,7 +275,7 @@ export const manageFolderPermission = async (folder_id, permissions, setMessage)
       body: JSON.stringify(permissions)
     })
     if (response.ok){
-      setMessage('Permissions successfully granted to ' + username);
+      setMessage('Permissions successfully granted to ' + permissions.username);
     } else {
       const data = await response.json();
       setMessage(data["error"]);

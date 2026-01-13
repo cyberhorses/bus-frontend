@@ -222,4 +222,41 @@ button:focus {
 .delete-button:hover {
   @apply bg-red-700;
 }
+
+/* Styles for the Manage Permissions panel */
+.manage-permissions-panel {
+  @apply border border-gray-300 rounded-md p-4 mt-4;
+}
+
+.manage-permissions-panel h3 {
+  @apply text-lg font-bold mb-2;
+}
+
+.manage-permissions-panel .form-group {
+  @apply mb-4;
+}
+
+.manage-permissions-panel label {
+  @apply block text-sm font-medium text-black mb-2;
+}
+
+.manage-permissions-panel input[type="text"] {
+  @apply w-full px-4 py-2 border border-gray-300 rounded-md text-black;
+}
+
+.manage-permissions-panel input[type="checkbox"] {
+  @apply mr-2;
+}
+
+.manage-permissions-panel button {
+  @apply px-4 py-2 bg-blue-600 text-white rounded-md cursor-pointer transition;
+}
+
+.manage-permissions-panel button:hover {
+  @apply bg-blue-700;
+}
+
+.manage-permissions-panel .permissions-message {
+  @apply mt-2 text-green-600;
+}
 }
