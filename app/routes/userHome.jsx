@@ -277,7 +277,13 @@ const UserHome = () => {
       )}
 
       {currentFolderPermissions && currentFolderPermissions.read && selectedFileId && (
-        <button className="download-button" onClick={() => downloadFile(selectedFileId)}>
+        <button
+          className="download-button"
+          onClick={() => {
+            console.log(`Download button clicked for file ID: ${selectedFileId}`);
+            downloadFile(selectedFileId);
+          }}
+        >
           Download File
         </button>
       )}
@@ -295,7 +301,7 @@ const UserHome = () => {
             }
           }}
         >
-          Delete
+          Delete file
         </button>
       )}
     </div>
