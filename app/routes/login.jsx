@@ -1,4 +1,3 @@
-// File: app/routes/login.jsx
 import { useState } from "react";
 import { handleLogin } from "../http/apiClient";
 import { useNavigate } from "react-router";

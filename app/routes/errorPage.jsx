@@ -1,4 +1,3 @@
-// import { RedirectionBtn } from "../widgets/redirectionBtn"
 import { Link } from 'react-router';
 import '../styles/errorPage.css';
 

@@ -33,17 +33,6 @@ export const handleLogin = async (username, password, navigate, setErrorMessage)
   }
 };
 
-// mock
-// export const handleLogin = async (username, password, navigate, setErrorMessage) => {
-//   console.log(JSON.stringify({ username, password }))
-//     if (false) {
-//       navigate('/home');
-//     } else {
-//       setErrorMessage('Login unsuccessful. Please try again.');
-//     }
-// };
-
-// REAL
 export const handleRegister = async (username, password, setErrorMessage, setSuccessMessage, navigate) => {
   try {
     const response = await fetch(API_BASEPATH + REGISTER_PATH, {
@@ -65,13 +54,6 @@ export const handleRegister = async (username, password, setErrorMessage, setSuc
     navigate('/oops');
   }
 };
-
-// // mock
-// export const handleRegister = async (username, password, setErrorMessage, setSuccessMessage, navigate) => {
-//   console.log(JSON.stringify({ username, password }));
-
-//   setSuccessMessage("Registration successful! You can now log in.");
-// };
 
 export const fetchFolders = async (pageNum, pageSize) => {
   try {
